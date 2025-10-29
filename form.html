@@ -1,0 +1,87 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instant Decision Maker</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col items-center p-4">
+
+    <div class="w-full max-w-lg bg-white shadow-xl rounded-xl p-8 space-y-8 mt-10">
+        <h1 class="text-4xl font-extrabold text-center text-indigo-700">
+            🎲 Decision Maker 
+        </h1>
+        <p class="text-center text-gray-500">
+            Enter choices below (e.g., "Taco Bell", "Pizza", "Cook at home") and let the app decide!
+        </p>
+
+        <!-- Current Choices List -->
+        <div class="bg-indigo-50 p-4 rounded-lg">
+            <h2 class="text-xl font-semibold mb-2 text-indigo-800">Your Options ({{ choices|length }})</h2>
+            {% if choices %}
+                <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                    {% for choice in choices %}
+                        <li>{{ choice }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-500 italic">No choices added yet. Add some below!</p>
+            {% endif %}
+        </div>
+
+        <!-- Decision Section -->
+        {% if last_decision %}
+            <div class="p-5 bg-green-100 border-l-4 border-green-500 rounded-lg text-center shadow-md animate-pulse">
+                <p class="text-xl text-green-700 font-bold mb-1">THE DECISION IS...</p>
+                <p class="text-3xl font-extrabold text-green-900">{{ last_decision }}</p>
+            </div>
+        {% endif %}
+
+        <!-- Decision Button -->
+        <form method="POST" action="{{ url_for('decide') }}" class="flex justify-center">
+            <button 
+                type="submit" 
+                {% if not choices %} disabled {% endif %}
+                class="w-full py-3 px-6 bg-green-600 text-white font-bold rounded-lg shadow-lg hover:bg-green-700 transition duration-150 ease-in-out 
+                       {% if not choices %} opacity-50 cursor-not-allowed {% else %} hover:shadow-xl {% endif %}">
+                Pick One Now!
+            </button>
+        </form>
+
+        <hr class="border-gray-200">
+
+        <!-- Add Choice Form -->
+        <form method="POST" action="{{ url_for('add_choice') }}" class="space-y-4">
+            <label for="new_choice" class="block text-lg font-medium text-gray-700">Add a New Option:</label>
+            <input 
+                type="text" 
+                id="new_choice" 
+                name="choice" 
+                required 
+                placeholder="e.g., Go to the gym"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
+            >
+            <div class="flex justify-end space-x-2">
+                <button 
+                    type="submit" 
+                    class="py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-150"
+                >
+                    Add Choice
+                </button>
+                <a href="{{ url_for('clear_choices') }}" 
+                    class="py-2 px-4 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition duration-150 inline-block text-center">
+                    Clear All
+                </a>
+            </div>
+        </form>
+
+    </div>
+
+</body>
+</html>
