@@ -30,7 +30,7 @@ pip install Flask
 
 Installation
 
-Clone this repository (or save the decision_maker.py file and the templates/form.html file):
+Clone this repository (or save the form1.py file and the templates/form.html file):
 
 git clone 
 cd decision-maker-app
@@ -39,7 +39,7 @@ cd decision-maker-app
 Ensure you have the following file structure:
 
 **decision-maker-app/
-├── decision_maker.py  # The Flask application logic
+├── form1.py  # The Flask application logic
 └── templates/
     └── form.html      # The HTML template (Jinja2)**
 
