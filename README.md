@@ -32,7 +32,7 @@ Installation
 
 Clone this repository (or save the decision_maker.py file and the templates/form.html file):
 
-git clone [YOUR_REPO_URL]
+git clone 
 cd decision-maker-app
 
 
@@ -61,7 +61,7 @@ The application will start, and you can access it in your web browser, typically
 
 Description
 
-decision_maker.py**
+form1.py**
 
 Contains the core Flask application. Defines routes (/, /add_choice, /decide), handles form submissions, and manages the global list of choices (CHOICES).
 
